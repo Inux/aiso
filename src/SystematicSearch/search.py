@@ -89,6 +89,9 @@ class GraphProblem():
     def path_cost(self, cost_so_far, A, action, B):
         return cost_so_far + (self.graph.get(A, B) or infinity)
 
+from functools import total_ordering
+
+@total_ordering
 class Node:
     """A node in a search tree. Contains a pointer to the parent (the node
     that this is a successor of) and to the actual state for this node. Note
@@ -109,6 +112,9 @@ class Node:
         if parent:
             self.depth = parent.depth + 1
 
+        DFS = 309, 1028
+        DLS =  309, 16
+        DFS = 309, 3446220
 
     def expand(self, problem):
         """List the nodes reachable in one step from this node."""
@@ -125,6 +131,9 @@ class Node:
     def solution(self):
         """Return the sequence of actions to go from the root to this node."""
         return [node.action for node in self.path()[1:]]
+
+    def __lt__(self, other):
+        return self.path_cost < other.path_cost
 
     def path(self):
         """Return a list of nodes forming the path from the root to this node."""

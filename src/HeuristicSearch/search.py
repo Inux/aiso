@@ -109,10 +109,6 @@ class Node:
         if parent:
             self.depth = parent.depth + 1
 
-        DFS = 309, 1028
-        DLS =  309, 16
-        DFS = 309, 3446220
-
     def expand(self, problem):
         """List the nodes reachable in one step from this node."""
         return [self.child_node(problem, action)

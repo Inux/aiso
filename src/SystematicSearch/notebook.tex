@@ -1,0 +1,1001 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{01\_systematic\_search}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \hypertarget{testat-systematic-search}{%
+\section{Testat Systematic Search}\label{testat-systematic-search}}
+
+\hypertarget{info}{%
+\subsection{Info}\label{info}}
+
+\begin{itemize}
+\tightlist
+\item
+  All Questions answerd in the Document itself
+\item
+  Code can be found on https://github.com/Inux/aiso
+\end{itemize}
+
+    \hypertarget{exercise-search-algorithms}{%
+\section{Exercise Search Algorithms}\label{exercise-search-algorithms}}
+
+    In the last session, we prepared different classes that are useful to
+solve search problems. You completed the Node class that we can use now
+for our first search strategy \emph{breadth\_first\_tree\_search}.
+
+If you had problems implementing the node class, please come and see me.
+Without the Node class, you can't solve the following exercises.
+
+First, you need to implement the breadth first search strategy:
+
+Hints: - create the FIFO queue frontier using collections.py, that
+implements high performance data types. The collection.deque allows you
+to easily extend the queue with \texttt{frontier.append} and to remove
+items from the queue with \texttt{frontier.popleft()} - remember that
+you can access the children of a node with the following code:
+\texttt{node.expand(problem)} - return the goal node if you can find it
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{o}{\PYZpc{}}\PY{k}{matplotlib} inline
+        
+        \PY{k+kn}{from} \PY{n+nn}{collections} \PY{k}{import} \PY{n}{deque}
+        \PY{k+kn}{from} \PY{n+nn}{search} \PY{k}{import} \PY{o}{*}
+        
+        \PY{k}{def} \PY{n+nf}{breadth\PYZus{}first\PYZus{}graph\PYZus{}search}\PY{p}{(}\PY{n}{problem}\PY{p}{)}\PY{p}{:}
+            \PY{n}{n} \PY{o}{=} \PY{n}{Node}\PY{p}{(}\PY{n}{problem}\PY{o}{.}\PY{n}{initial}\PY{p}{)}
+            
+            \PY{k}{if} \PY{n}{problem}\PY{o}{.}\PY{n}{goal\PYZus{}test}\PY{p}{(}\PY{n}{n}\PY{o}{.}\PY{n}{state}\PY{p}{)}\PY{p}{:}
+                \PY{k}{return} \PY{n}{n}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{0} \PY{c+c1}{\PYZsh{}found the goal node}
+            
+            \PY{n}{frontier} \PY{o}{=} \PY{n}{deque}\PY{p}{(}\PY{p}{[}\PY{n}{n}\PY{p}{]}\PY{p}{)} \PY{c+c1}{\PYZsh{}frontier}
+            \PY{n}{exp} \PY{o}{=} \PY{n+nb}{set}\PY{p}{(}\PY{p}{[}\PY{n}{n}\PY{p}{]}\PY{p}{)} \PY{c+c1}{\PYZsh{}explored}
+            
+            \PY{k}{while} \PY{n}{frontier}\PY{p}{:}
+                \PY{n}{n} \PY{o}{=} \PY{n}{frontier}\PY{o}{.}\PY{n}{popleft}\PY{p}{(}\PY{p}{)} \PY{c+c1}{\PYZsh{}get new node}
+                \PY{n}{exp}\PY{o}{.}\PY{n}{add}\PY{p}{(}\PY{n}{n}\PY{p}{)}
+                
+                \PY{k}{for} \PY{n}{c} \PY{o+ow}{in} \PY{n}{n}\PY{o}{.}\PY{n}{expand}\PY{p}{(}\PY{n}{problem}\PY{p}{)}\PY{p}{:}
+                    \PY{n}{visited} \PY{o}{=} \PY{p}{[}\PY{n}{n}\PY{o}{.}\PY{n}{state} \PY{k}{for} \PY{n}{n} \PY{o+ow}{in} \PY{n}{frontier}\PY{p}{]} \PY{o}{+} \PY{p}{[}\PY{n}{n}\PY{o}{.}\PY{n}{state} \PY{k}{for} \PY{n}{n} \PY{o+ow}{in} \PY{n}{exp}\PY{p}{]}
+                    \PY{k}{if} \PY{n}{c}\PY{o}{.}\PY{n}{state} \PY{o+ow}{not} \PY{o+ow}{in} \PY{n}{visited}\PY{p}{:}
+                        \PY{k}{if} \PY{n}{problem}\PY{o}{.}\PY{n}{goal\PYZus{}test}\PY{p}{(}\PY{n}{c}\PY{o}{.}\PY{n}{state}\PY{p}{)}\PY{p}{:}
+                            \PY{k}{return} \PY{n}{c}\PY{p}{,} \PY{n+nb}{len}\PY{p}{(}\PY{n}{exp}\PY{p}{)}\PY{p}{,} \PY{n+nb}{len}\PY{p}{(}\PY{n}{frontier}\PY{p}{)} \PY{c+c1}{\PYZsh{}found the goal node}
+                        
+                        \PY{n}{frontier}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{c}\PY{p}{)}
+                        
+            \PY{k}{return} \PY{k+kc}{None} \PY{c+c1}{\PYZsh{}no goal node found}
+\end{Verbatim}
+
+
+    Lets create a map from the text book example:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{n}{romania\PYZus{}map} \PY{o}{=} \PY{n}{UndirectedGraph}\PY{p}{(}\PY{n+nb}{dict}\PY{p}{(}
+            \PY{n}{Arad}\PY{o}{=}\PY{n+nb}{dict}\PY{p}{(}\PY{n}{Zerind}\PY{o}{=}\PY{l+m+mi}{75}\PY{p}{,} \PY{n}{Sibiu}\PY{o}{=}\PY{l+m+mi}{140}\PY{p}{,} \PY{n}{Timisoara}\PY{o}{=}\PY{l+m+mi}{118}\PY{p}{)}\PY{p}{,}
+            \PY{n}{Bucharest}\PY{o}{=}\PY{n+nb}{dict}\PY{p}{(}\PY{n}{Urziceni}\PY{o}{=}\PY{l+m+mi}{85}\PY{p}{,} \PY{n}{Pitesti}\PY{o}{=}\PY{l+m+mi}{101}\PY{p}{,} \PY{n}{Giurgiu}\PY{o}{=}\PY{l+m+mi}{90}\PY{p}{,} \PY{n}{Fagaras}\PY{o}{=}\PY{l+m+mi}{211}\PY{p}{)}\PY{p}{,}
+            \PY{n}{Craiova}\PY{o}{=}\PY{n+nb}{dict}\PY{p}{(}\PY{n}{Drobeta}\PY{o}{=}\PY{l+m+mi}{120}\PY{p}{,} \PY{n}{Rimnicu}\PY{o}{=}\PY{l+m+mi}{146}\PY{p}{,} \PY{n}{Pitesti}\PY{o}{=}\PY{l+m+mi}{138}\PY{p}{)}\PY{p}{,}
+            \PY{n}{Drobeta}\PY{o}{=}\PY{n+nb}{dict}\PY{p}{(}\PY{n}{Mehadia}\PY{o}{=}\PY{l+m+mi}{75}\PY{p}{)}\PY{p}{,}
+            \PY{n}{Eforie}\PY{o}{=}\PY{n+nb}{dict}\PY{p}{(}\PY{n}{Hirsova}\PY{o}{=}\PY{l+m+mi}{86}\PY{p}{)}\PY{p}{,}
+            \PY{n}{Fagaras}\PY{o}{=}\PY{n+nb}{dict}\PY{p}{(}\PY{n}{Sibiu}\PY{o}{=}\PY{l+m+mi}{99}\PY{p}{)}\PY{p}{,}
+            \PY{n}{Hirsova}\PY{o}{=}\PY{n+nb}{dict}\PY{p}{(}\PY{n}{Urziceni}\PY{o}{=}\PY{l+m+mi}{98}\PY{p}{)}\PY{p}{,}
+            \PY{n}{Iasi}\PY{o}{=}\PY{n+nb}{dict}\PY{p}{(}\PY{n}{Vaslui}\PY{o}{=}\PY{l+m+mi}{92}\PY{p}{,} \PY{n}{Neamt}\PY{o}{=}\PY{l+m+mi}{87}\PY{p}{)}\PY{p}{,}
+            \PY{n}{Lugoj}\PY{o}{=}\PY{n+nb}{dict}\PY{p}{(}\PY{n}{Timisoara}\PY{o}{=}\PY{l+m+mi}{111}\PY{p}{,} \PY{n}{Mehadia}\PY{o}{=}\PY{l+m+mi}{70}\PY{p}{)}\PY{p}{,}
+            \PY{n}{Oradea}\PY{o}{=}\PY{n+nb}{dict}\PY{p}{(}\PY{n}{Zerind}\PY{o}{=}\PY{l+m+mi}{71}\PY{p}{,} \PY{n}{Sibiu}\PY{o}{=}\PY{l+m+mi}{151}\PY{p}{)}\PY{p}{,}
+            \PY{n}{Pitesti}\PY{o}{=}\PY{n+nb}{dict}\PY{p}{(}\PY{n}{Rimnicu}\PY{o}{=}\PY{l+m+mi}{97}\PY{p}{)}\PY{p}{,}
+            \PY{n}{Rimnicu}\PY{o}{=}\PY{n+nb}{dict}\PY{p}{(}\PY{n}{Sibiu}\PY{o}{=}\PY{l+m+mi}{80}\PY{p}{)}\PY{p}{,}
+            \PY{n}{Urziceni}\PY{o}{=}\PY{n+nb}{dict}\PY{p}{(}\PY{n}{Vaslui}\PY{o}{=}\PY{l+m+mi}{142}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+        \PY{n}{romania\PYZus{}map}\PY{o}{.}\PY{n}{locations} \PY{o}{=} \PY{n+nb}{dict}\PY{p}{(}
+            \PY{n}{Arad}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{91}\PY{p}{,} \PY{l+m+mi}{492}\PY{p}{)}\PY{p}{,} \PY{n}{Bucharest}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{400}\PY{p}{,} \PY{l+m+mi}{327}\PY{p}{)}\PY{p}{,} \PY{n}{Craiova}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{253}\PY{p}{,} \PY{l+m+mi}{288}\PY{p}{)}\PY{p}{,}
+            \PY{n}{Drobeta}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{165}\PY{p}{,} \PY{l+m+mi}{299}\PY{p}{)}\PY{p}{,} \PY{n}{Eforie}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{562}\PY{p}{,} \PY{l+m+mi}{293}\PY{p}{)}\PY{p}{,} \PY{n}{Fagaras}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{305}\PY{p}{,} \PY{l+m+mi}{449}\PY{p}{)}\PY{p}{,}
+            \PY{n}{Giurgiu}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{375}\PY{p}{,} \PY{l+m+mi}{270}\PY{p}{)}\PY{p}{,} \PY{n}{Hirsova}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{534}\PY{p}{,} \PY{l+m+mi}{350}\PY{p}{)}\PY{p}{,} \PY{n}{Iasi}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{473}\PY{p}{,} \PY{l+m+mi}{506}\PY{p}{)}\PY{p}{,}
+            \PY{n}{Lugoj}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{165}\PY{p}{,} \PY{l+m+mi}{379}\PY{p}{)}\PY{p}{,} \PY{n}{Mehadia}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{168}\PY{p}{,} \PY{l+m+mi}{339}\PY{p}{)}\PY{p}{,} \PY{n}{Neamt}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{406}\PY{p}{,} \PY{l+m+mi}{537}\PY{p}{)}\PY{p}{,}
+            \PY{n}{Oradea}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{131}\PY{p}{,} \PY{l+m+mi}{571}\PY{p}{)}\PY{p}{,} \PY{n}{Pitesti}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{320}\PY{p}{,} \PY{l+m+mi}{368}\PY{p}{)}\PY{p}{,} \PY{n}{Rimnicu}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{233}\PY{p}{,} \PY{l+m+mi}{410}\PY{p}{)}\PY{p}{,}
+            \PY{n}{Sibiu}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{207}\PY{p}{,} \PY{l+m+mi}{457}\PY{p}{)}\PY{p}{,} \PY{n}{Timisoara}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{94}\PY{p}{,} \PY{l+m+mi}{410}\PY{p}{)}\PY{p}{,} \PY{n}{Urziceni}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{456}\PY{p}{,} \PY{l+m+mi}{350}\PY{p}{)}\PY{p}{,}
+            \PY{n}{Vaslui}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{509}\PY{p}{,} \PY{l+m+mi}{444}\PY{p}{)}\PY{p}{,} \PY{n}{Zerind}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{108}\PY{p}{,} \PY{l+m+mi}{531}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    With this, we can test our search algorithm. We define our problem and
+let the breadth first search find a solution.
+
+    The following code will show you some information about the search:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{k}{def} \PY{n+nf}{print\PYZus{}info\PYZus{}about\PYZus{}search}\PY{p}{(}\PY{n}{node}\PY{p}{,} \PY{n}{exp}\PY{p}{,} \PY{n}{stored}\PY{p}{)}\PY{p}{:}
+            \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{The search algorithm reached }\PY{l+s+s2}{\PYZdq{}} \PY{o}{+} \PY{n}{node}\PY{o}{.}\PY{n}{state} \PY{o}{+} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ with a cost of }\PY{l+s+s2}{\PYZdq{}} \PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n}{node}\PY{o}{.}\PY{n}{path\PYZus{}cost}\PY{p}{)} \PY{o}{+} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{.}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+            \PY{n}{path} \PY{o}{=} \PY{n}{node}\PY{o}{.}\PY{n}{path}\PY{p}{(}\PY{p}{)}
+            \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Nodes to visit: }\PY{l+s+s2}{\PYZdq{}} \PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{path}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+            \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Nodes explored: }\PY{l+s+s2}{\PYZdq{}} \PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n}{exp}\PY{p}{)}\PY{p}{)}
+            \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Nodes stored: }\PY{l+s+s2}{\PYZdq{}} \PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n}{stored}\PY{p}{)}\PY{p}{)}
+            
+            \PY{c+c1}{\PYZsh{}directions = \PYZdq{}\PYZdq{}}
+            \PY{c+c1}{\PYZsh{}for n in path:}
+            \PY{c+c1}{\PYZsh{}    directions = directions + \PYZdq{} \PYZgt{} \PYZdq{} + n.state}
+            \PY{c+c1}{\PYZsh{}print(\PYZdq{}The path is the following:\PYZdq{} + directions)}
+            
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{n}{start} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Arad}\PY{l+s+s1}{\PYZsq{}}
+        \PY{n}{goal} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Bucharest}\PY{l+s+s1}{\PYZsq{}}
+        \PY{n}{problem} \PY{o}{=} \PY{n}{GraphProblem}\PY{p}{(}\PY{n}{start}\PY{p}{,} \PY{n}{goal}\PY{p}{,} \PY{n}{romania\PYZus{}map}\PY{p}{)}
+        \PY{n}{node}\PY{p}{,} \PY{n}{exp}\PY{p}{,} \PY{n}{stored} \PY{o}{=} \PY{n}{breadth\PYZus{}first\PYZus{}graph\PYZus{}search}\PY{p}{(}\PY{n}{problem}\PY{p}{)}
+        \PY{n}{print\PYZus{}info\PYZus{}about\PYZus{}search}\PY{p}{(}\PY{n}{node}\PY{p}{,} \PY{n}{exp}\PY{p}{,} \PY{n}{stored}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+The search algorithm reached Bucharest with a cost of 450.
+Nodes to visit: 4
+Nodes explored: 6
+Nodes stored: 2
+
+    \end{Verbatim}
+
+    Congratulations, you have implemented your first search algorithm!
+
+\hypertarget{swiss-railway-system}{%
+\subsection{Swiss Railway System}\label{swiss-railway-system}}
+
+The SBB OpenData platform (https://data.sbb.ch/) provides all train
+lines and hubs (Betriebsknotenpunkte) of their railway system. I briefly
+mentioned the data set in the beginning.
+
+I created a SBB class that can be used to import the data from the json
+file:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{k+kn}{from} \PY{n+nn}{sbb} \PY{k}{import} \PY{n}{SBB}
+        
+        \PY{n}{sbb} \PY{o}{=} \PY{n}{SBB}\PY{p}{(}\PY{p}{)}
+        \PY{n}{sbb}\PY{o}{.}\PY{n}{importData}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{linie\PYZhy{}mit\PYZhy{}betriebspunkten.json}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+successfully imported 2787 hubs
+successfully imported 401 train lines
+
+    \end{Verbatim}
+
+    The object sbb contains know all the hubs and trainlines. We can
+visualize the hubs with matplotlib:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+        
+        
+        \PY{k}{def} \PY{n+nf}{plot\PYZus{}hubs}\PY{p}{(}\PY{n}{hubs}\PY{p}{,} \PY{n}{labelNames} \PY{o}{=} \PY{k+kc}{False}\PY{p}{)}\PY{p}{:}
+            \PY{n}{fig} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{,}\PY{l+m+mi}{10}\PY{p}{)}\PY{p}{)}
+            \PY{n}{x} \PY{o}{=}\PY{p}{[}\PY{p}{]}\PY{p}{;} \PY{n}{y} \PY{o}{=} \PY{p}{[}\PY{p}{]}\PY{p}{;} \PY{n}{names} \PY{o}{=} \PY{p}{[}\PY{p}{]}\PY{p}{;}
+            \PY{k}{for} \PY{n}{h} \PY{o+ow}{in} \PY{n}{hubs}\PY{p}{:}
+                \PY{n}{new\PYZus{}x} \PY{o}{=} \PY{n}{hubs}\PY{p}{[}\PY{n}{h}\PY{p}{]}\PY{o}{.}\PY{n}{x}
+                \PY{n}{new\PYZus{}y} \PY{o}{=} \PY{n}{hubs}\PY{p}{[}\PY{n}{h}\PY{p}{]}\PY{o}{.}\PY{n}{y}
+                \PY{n}{x}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{new\PYZus{}x}\PY{p}{)}
+                \PY{n}{y}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{new\PYZus{}y}\PY{p}{)}
+                \PY{k}{if} \PY{n}{labelNames}\PY{p}{:}
+                    \PY{n}{plt}\PY{o}{.}\PY{n}{text}\PY{p}{(}\PY{n}{new\PYZus{}x}\PY{o}{+}\PY{l+m+mf}{0.01}\PY{p}{,} \PY{n}{new\PYZus{}y}\PY{o}{+}\PY{l+m+mf}{0.01}\PY{p}{,} \PY{n}{h}\PY{p}{,} \PY{n}{fontsize}\PY{o}{=}\PY{l+m+mi}{9}\PY{p}{)}              
+            \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{y}\PY{p}{,} \PY{n}{marker}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{.}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{black}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}  
+            \PY{n}{plt}\PY{o}{.}\PY{n}{axis}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{equal}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+            
+        \PY{c+c1}{\PYZsh{}plot\PYZus{}hubs(sbb.hubs)}
+\end{Verbatim}
+
+
+    With a little imagination and geographic knowledge you can recognize the
+different regions of Switzerland.
+
+We want to implement a search algorithm that finds the shortest way
+between `Rotkreuz' and `Thalwil'. In this exercise, we are not
+restricted to the official train lines. We can use the railway system
+with our own search agent and decide at each hub in which direction we
+want to go. If you have successfully implemented the classes above, the
+following code should execute and provide the directions between
+Rotkreuz and Zermatt.
+
+    \hypertarget{more-uninformed-search-algorithms}{%
+\subsection{More Uninformed Search
+Algorithms}\label{more-uninformed-search-algorithms}}
+
+As you know, the breadth-search algorithm is just one of many search
+strategies. Implement the following search algorithms and evaluate their
+performance. You might have to adapt (or create a subclass) of certain
+classes we used before, to determine the depth of the search tree for
+example. You can use the PriorityQueue class below to implement the
+Uniform Cost Search.
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Depth First Search (DFS)
+\item
+  Depth Limited Search (DLS)
+\item
+  Iterative Deepening Search (IDS)
+\item
+  Uniform Cost Search (UCS)
+\end{enumerate}
+
+Try to visualize which nodes (hubs) have been visited by the search
+algorithm. Create for each search strategy an image that shows the
+start, the goal, the solution path and all the visited nodes.
+
+Answer the following questions for each algorithm:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  How does your algorithm deal with loops?
+\item
+  Can you make an estimate about the time and memory requirements?
+\item
+  Is your algorithm complete and optimal?
+\end{enumerate}
+
+Fill the following table:
+
+\begin{longtable}[]{@{}llllllll@{}}
+\toprule
+\begin{minipage}[b]{0.11\columnwidth}\raggedright
+Algorithm\strut
+\end{minipage} & \begin{minipage}[b]{0.11\columnwidth}\raggedright
+start\strut
+\end{minipage} & \begin{minipage}[b]{0.09\columnwidth}\raggedright
+goal\strut
+\end{minipage} & \begin{minipage}[b]{0.09\columnwidth}\raggedright
+cost\strut
+\end{minipage} & \begin{minipage}[b]{0.09\columnwidth}\raggedright
+number of nodes visited\strut
+\end{minipage} & \begin{minipage}[b]{0.09\columnwidth}\raggedright
+maximal stored nodes\strut
+\end{minipage} & \begin{minipage}[b]{0.09\columnwidth}\raggedright
+complete\strut
+\end{minipage} & \begin{minipage}[b]{0.09\columnwidth}\raggedright
+optimal\strut
+\end{minipage}\tabularnewline
+\midrule
+\endhead
+\begin{minipage}[t]{0.11\columnwidth}\raggedright
+BFS\strut
+\end{minipage} & \begin{minipage}[t]{0.11\columnwidth}\raggedright
+Rotkreuz\strut
+\end{minipage} & \begin{minipage}[t]{0.09\columnwidth}\raggedright
+Thalwil\strut
+\end{minipage} & \begin{minipage}[t]{0.09\columnwidth}\raggedright
+36\strut
+\end{minipage} & \begin{minipage}[t]{0.09\columnwidth}\raggedright
+17\strut
+\end{minipage} & \begin{minipage}[t]{0.09\columnwidth}\raggedright
+154\strut
+\end{minipage} & \begin{minipage}[t]{0.09\columnwidth}\raggedright
+yes\strut
+\end{minipage} & \begin{minipage}[t]{0.09\columnwidth}\raggedright
+yes\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.11\columnwidth}\raggedright
+DFS\strut
+\end{minipage} & \begin{minipage}[t]{0.11\columnwidth}\raggedright
+Rotkreuz\strut
+\end{minipage} & \begin{minipage}[t]{0.09\columnwidth}\raggedright
+Thalwil\strut
+\end{minipage} & \begin{minipage}[t]{0.09\columnwidth}\raggedright
+740\strut
+\end{minipage} & \begin{minipage}[t]{0.09\columnwidth}\raggedright
+309\strut
+\end{minipage} & \begin{minipage}[t]{0.09\columnwidth}\raggedright
+1028\strut
+\end{minipage} & \begin{minipage}[t]{0.09\columnwidth}\raggedright
+yes\strut
+\end{minipage} & \begin{minipage}[t]{0.09\columnwidth}\raggedright
+yes\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.11\columnwidth}\raggedright
+DLS\strut
+\end{minipage} & \begin{minipage}[t]{0.11\columnwidth}\raggedright
+Rotkreuz\strut
+\end{minipage} & \begin{minipage}[t]{0.09\columnwidth}\raggedright
+Thalwil\strut
+\end{minipage} & \begin{minipage}[t]{0.09\columnwidth}\raggedright
+36\strut
+\end{minipage} & \begin{minipage}[t]{0.09\columnwidth}\raggedright
+17\strut
+\end{minipage} & \begin{minipage}[t]{0.09\columnwidth}\raggedright
+16\strut
+\end{minipage} & \begin{minipage}[t]{0.09\columnwidth}\raggedright
+no\strut
+\end{minipage} & \begin{minipage}[t]{0.09\columnwidth}\raggedright
+no\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.11\columnwidth}\raggedright
+IDS\strut
+\end{minipage} & \begin{minipage}[t]{0.11\columnwidth}\raggedright
+Rotkreuz\strut
+\end{minipage} & \begin{minipage}[t]{0.09\columnwidth}\raggedright
+Thalwil\strut
+\end{minipage} & \begin{minipage}[t]{0.09\columnwidth}\raggedright
+36\strut
+\end{minipage} & \begin{minipage}[t]{0.09\columnwidth}\raggedright
+17\strut
+\end{minipage} & \begin{minipage}[t]{0.09\columnwidth}\raggedright
+3446220\strut
+\end{minipage} & \begin{minipage}[t]{0.09\columnwidth}\raggedright
+yes\strut
+\end{minipage} & \begin{minipage}[t]{0.09\columnwidth}\raggedright
+yes\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.11\columnwidth}\raggedright
+UCS\strut
+\end{minipage} & \begin{minipage}[t]{0.11\columnwidth}\raggedright
+Rotkreuz\strut
+\end{minipage} & \begin{minipage}[t]{0.09\columnwidth}\raggedright
+Thalwil\strut
+\end{minipage} & \begin{minipage}[t]{0.09\columnwidth}\raggedright
+No Solution\strut
+\end{minipage} & \begin{minipage}[t]{0.09\columnwidth}\raggedright
+No Solution\strut
+\end{minipage} & \begin{minipage}[t]{0.09\columnwidth}\raggedright
+No Solution\strut
+\end{minipage} & \begin{minipage}[t]{0.09\columnwidth}\raggedright
+?\strut
+\end{minipage} & \begin{minipage}[t]{0.09\columnwidth}\raggedright
+?\strut
+\end{minipage}\tabularnewline
+\bottomrule
+\end{longtable}
+
+What is special about the sbb railway map in terms of complexity
+(branching factor, depth)? How could you preprocess the data set in
+order to reduce the search space?
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{k+kn}{import} \PY{n+nn}{heapq}
+        
+        \PY{k}{class} \PY{n+nc}{PriorityQueue}\PY{p}{:}
+            \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}A Queue in which the minimum (or maximum) element (as determined by f and}
+        \PY{l+s+sd}{    order) is returned first.}
+        \PY{l+s+sd}{    If order is \PYZsq{}min\PYZsq{}, the item with minimum f(x) is}
+        \PY{l+s+sd}{    returned first; if order is \PYZsq{}max\PYZsq{}, then it is the item with maximum f(x).}
+        \PY{l+s+sd}{    Also supports dict\PYZhy{}like lookup.\PYZdq{}\PYZdq{}\PYZdq{}}
+        
+            \PY{k}{def} \PY{n+nf}{\PYZus{}\PYZus{}init\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{order}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{min}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{f}\PY{o}{=}\PY{k}{lambda} \PY{n}{x}\PY{p}{:} \PY{n}{x}\PY{p}{)}\PY{p}{:}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{heap} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+        
+                \PY{k}{if} \PY{n}{order} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{min}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}
+                    \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{f} \PY{o}{=} \PY{n}{f}
+                \PY{k}{elif} \PY{n}{order} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{max}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}  \PY{c+c1}{\PYZsh{} now item with max f(x)}
+                    \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{f} \PY{o}{=} \PY{k}{lambda} \PY{n}{x}\PY{p}{:} \PY{o}{\PYZhy{}}\PY{n}{f}\PY{p}{(}\PY{n}{x}\PY{p}{)}  \PY{c+c1}{\PYZsh{} will be popped first}
+                \PY{k}{else}\PY{p}{:}
+                    \PY{k}{raise} \PY{n+ne}{ValueError}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{order must be either }\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{min}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{ or max}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{.}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        
+            \PY{k}{def} \PY{n+nf}{append}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{item}\PY{p}{)}\PY{p}{:}
+                \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}Insert item at its correct position.\PYZdq{}\PYZdq{}\PYZdq{}}
+                \PY{n}{heapq}\PY{o}{.}\PY{n}{heappush}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{heap}\PY{p}{,} \PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{f}\PY{p}{(}\PY{n}{item}\PY{p}{)}\PY{p}{,} \PY{n}{item}\PY{p}{)}\PY{p}{)}
+        
+            \PY{k}{def} \PY{n+nf}{extend}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{items}\PY{p}{)}\PY{p}{:}
+                \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}Insert each item in items at its correct position.\PYZdq{}\PYZdq{}\PYZdq{}}
+                \PY{k}{for} \PY{n}{item} \PY{o+ow}{in} \PY{n}{items}\PY{p}{:}
+                    \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{item}\PY{p}{)}
+        
+            \PY{k}{def} \PY{n+nf}{pop}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{)}\PY{p}{:}
+                \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}Pop and return the item (with min or max f(x) value}
+        \PY{l+s+sd}{        depending on the order.\PYZdq{}\PYZdq{}\PYZdq{}}
+                \PY{k}{if} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{heap}\PY{p}{:}
+                    \PY{k}{return} \PY{n}{heapq}\PY{o}{.}\PY{n}{heappop}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{heap}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}
+                \PY{k}{else}\PY{p}{:}
+                    \PY{k}{raise} \PY{n+ne}{Exception}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Trying to pop from empty PriorityQueue.}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        
+            \PY{k}{def} \PY{n+nf}{\PYZus{}\PYZus{}len\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{)}\PY{p}{:}
+                \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}Return current capacity of PriorityQueue.\PYZdq{}\PYZdq{}\PYZdq{}}
+                \PY{k}{return} \PY{n+nb}{len}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{heap}\PY{p}{)}
+        
+            \PY{k}{def} \PY{n+nf}{\PYZus{}\PYZus{}contains\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{item}\PY{p}{)}\PY{p}{:}
+                \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}Return True if item in PriorityQueue.\PYZdq{}\PYZdq{}\PYZdq{}}
+                \PY{k}{return} \PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{f}\PY{p}{(}\PY{n}{item}\PY{p}{)}\PY{p}{,} \PY{n}{item}\PY{p}{)} \PY{o+ow}{in} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{heap}
+        
+            \PY{k}{def} \PY{n+nf}{\PYZus{}\PYZus{}getitem\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{key}\PY{p}{)}\PY{p}{:}
+                \PY{k}{for} \PY{n}{\PYZus{}}\PY{p}{,} \PY{n}{item} \PY{o+ow}{in} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{heap}\PY{p}{:}
+                    \PY{k}{if} \PY{n}{item} \PY{o}{==} \PY{n}{key}\PY{p}{:}
+                        \PY{k}{return} \PY{n}{item}
+        
+            \PY{k}{def} \PY{n+nf}{\PYZus{}\PYZus{}delitem\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{key}\PY{p}{)}\PY{p}{:}
+                \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}Delete the first occurrence of key.\PYZdq{}\PYZdq{}\PYZdq{}}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{heap}\PY{o}{.}\PY{n}{remove}\PY{p}{(}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{f}\PY{p}{(}\PY{n}{key}\PY{p}{)}\PY{p}{,} \PY{n}{key}\PY{p}{)}\PY{p}{)}
+                \PY{n}{heapq}\PY{o}{.}\PY{n}{heapify}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{heap}\PY{p}{)}
+\end{Verbatim}
+
+
+    \hypertarget{plotting}{%
+\subsubsection{Plotting}\label{plotting}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{k}{def} \PY{n+nf}{plot\PYZus{}it}\PY{p}{(}\PY{n}{node}\PY{p}{,} \PY{n}{start}\PY{p}{,} \PY{n}{goal}\PY{p}{)}\PY{p}{:}
+            \PY{n}{fig} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{,} \PY{l+m+mi}{10}\PY{p}{)}\PY{p}{)}
+            
+            \PY{k}{def} \PY{n+nf}{get\PYZus{}lims\PYZus{}for\PYZus{}node}\PY{p}{(}\PY{n}{start}\PY{p}{,} \PY{n}{goal}\PY{p}{,} \PY{n}{zoom}\PY{o}{=}\PY{l+m+mf}{0.3}\PY{p}{)}\PY{p}{:}
+                \PY{n}{goal\PYZus{}hub} \PY{o}{=} \PY{n}{sbb}\PY{o}{.}\PY{n}{hubs}\PY{p}{[}\PY{n}{goal}\PY{p}{]}
+                \PY{n}{start\PYZus{}hub} \PY{o}{=} \PY{n}{sbb}\PY{o}{.}\PY{n}{hubs}\PY{p}{[}\PY{n}{start}\PY{p}{]}
+                \PY{n}{x} \PY{o}{=} \PY{n}{goal\PYZus{}hub}\PY{o}{.}\PY{n}{x} \PY{o}{\PYZhy{}} \PY{p}{(}\PY{n}{goal\PYZus{}hub}\PY{o}{.}\PY{n}{x} \PY{o}{\PYZhy{}} \PY{n}{start\PYZus{}hub}\PY{o}{.}\PY{n}{x}\PY{p}{)} \PY{o}{/} \PY{l+m+mf}{2.0}
+                \PY{n}{y} \PY{o}{=} \PY{n}{goal\PYZus{}hub}\PY{o}{.}\PY{n}{y} \PY{o}{\PYZhy{}} \PY{p}{(}\PY{n}{goal\PYZus{}hub}\PY{o}{.}\PY{n}{y} \PY{o}{\PYZhy{}} \PY{n}{start\PYZus{}hub}\PY{o}{.}\PY{n}{y}\PY{p}{)} \PY{o}{/} \PY{l+m+mf}{2.0}
+                \PY{n}{ylims} \PY{o}{=} \PY{p}{[}\PY{n}{y} \PY{o}{\PYZhy{}} \PY{n}{zoom}\PY{p}{,} \PY{n}{y} \PY{o}{+} \PY{n}{zoom}\PY{p}{]}
+                \PY{n}{xlims} \PY{o}{=} \PY{p}{[}\PY{n}{x} \PY{o}{\PYZhy{}} \PY{n}{zoom}\PY{p}{,} \PY{n}{x} \PY{o}{+} \PY{n}{zoom}\PY{p}{]}
+                \PY{k}{return} \PY{n}{xlims}\PY{p}{,} \PY{n}{ylims}
+            
+            \PY{n}{xlims}\PY{p}{,} \PY{n}{ylims} \PY{o}{=} \PY{n}{get\PYZus{}lims\PYZus{}for\PYZus{}node}\PY{p}{(}\PY{n}{start}\PY{p}{,} \PY{n}{goal}\PY{p}{)}
+            
+            \PY{k}{def} \PY{n+nf}{plot\PYZus{}internal}\PY{p}{(}\PY{n}{hubs}\PY{p}{,} \PY{n}{color}\PY{p}{,} \PY{n}{labels}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}\PY{p}{:}
+                \PY{k}{if} \PY{n}{fig} \PY{o+ow}{is} \PY{k+kc}{None}\PY{p}{:}
+                    \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{,} \PY{l+m+mi}{10}\PY{p}{)}\PY{p}{)}
+                    
+                \PY{n}{x} \PY{o}{=} \PY{p}{[}\PY{n}{hubs}\PY{p}{[}\PY{n}{name}\PY{p}{]}\PY{o}{.}\PY{n}{x} \PY{k}{for} \PY{n}{name} \PY{o+ow}{in} \PY{n}{hubs}\PY{p}{]}
+                \PY{n}{y} \PY{o}{=} \PY{p}{[}\PY{n}{hubs}\PY{p}{[}\PY{n}{name}\PY{p}{]}\PY{o}{.}\PY{n}{y} \PY{k}{for} \PY{n}{name} \PY{o+ow}{in} \PY{n}{hubs}\PY{p}{]}
+                
+                \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{y}\PY{p}{,} \PY{n}{marker}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{.}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{n}{color}\PY{p}{)}
+                \PY{n}{plt}\PY{o}{.}\PY{n}{axis}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{equal}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+                \PY{n}{plt}\PY{o}{.}\PY{n}{axis}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{off}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+                    
+                \PY{k}{if} \PY{n}{ylims} \PY{o+ow}{is} \PY{o+ow}{not} \PY{k+kc}{None}\PY{p}{:}
+                    \PY{n}{plt}\PY{o}{.}\PY{n}{ylim}\PY{p}{(}\PY{n}{ylims}\PY{p}{)}
+                    
+                \PY{k}{if} \PY{n}{xlims} \PY{o+ow}{is} \PY{o+ow}{not} \PY{k+kc}{None}\PY{p}{:}
+                    \PY{n}{plt}\PY{o}{.}\PY{n}{xlim}\PY{p}{(}\PY{n}{xlims}\PY{p}{)}
+                    
+                \PY{k}{if} \PY{n}{labels}\PY{p}{:}
+                    \PY{k}{for} \PY{n}{h} \PY{o+ow}{in} \PY{n}{hubs}\PY{p}{:}
+                        \PY{k}{if} \PY{n}{xlims} \PY{o+ow}{is} \PY{k+kc}{None} \PY{o+ow}{or} \PY{n}{xlims}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]} \PY{o}{\PYZlt{}} \PY{n}{hubs}\PY{p}{[}\PY{n}{h}\PY{p}{]}\PY{o}{.}\PY{n}{x} \PY{o}{\PYZlt{}} \PY{n}{xlims}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{:}
+                            \PY{n}{show\PYZus{}because\PYZus{}of\PYZus{}x} \PY{o}{=} \PY{k+kc}{True}
+                        
+                        \PY{k}{if} \PY{n}{ylims} \PY{o+ow}{is} \PY{k+kc}{None} \PY{o+ow}{or} \PY{n}{ylims}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]} \PY{o}{\PYZlt{}} \PY{n}{hubs}\PY{p}{[}\PY{n}{h}\PY{p}{]}\PY{o}{.}\PY{n}{y} \PY{o}{\PYZlt{}} \PY{n}{ylims}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{:}
+                            \PY{n}{show\PYZus{}because\PYZus{}of\PYZus{}y} \PY{o}{=} \PY{k+kc}{True}
+                        
+                        \PY{k}{if} \PY{n}{show\PYZus{}because\PYZus{}of\PYZus{}x} \PY{o+ow}{and} \PY{n}{show\PYZus{}because\PYZus{}of\PYZus{}y}\PY{p}{:}
+                            \PY{n}{plt}\PY{o}{.}\PY{n}{text}\PY{p}{(}\PY{n}{hubs}\PY{p}{[}\PY{n}{h}\PY{p}{]}\PY{o}{.}\PY{n}{x}\PY{p}{,} \PY{n}{hubs}\PY{p}{[}\PY{n}{h}\PY{p}{]}\PY{o}{.}\PY{n}{y}\PY{p}{,} \PY{n}{h}\PY{p}{,} \PY{n}{fontsize}\PY{o}{=}\PY{l+m+mi}{6}\PY{p}{)}
+                            
+            \PY{n}{solution\PYZus{}nodes} \PY{o}{=} \PY{n}{node}\PY{o}{.}\PY{n}{solution}\PY{p}{(}\PY{p}{)} \PY{k}{if} \PY{n+nb}{isinstance}\PY{p}{(}\PY{n}{node}\PY{p}{,} \PY{n}{Node}\PY{p}{)} \PY{k}{else} \PY{p}{[}\PY{p}{]}         
+            \PY{n}{solution\PYZus{}hubs} \PY{o}{=} \PY{p}{\PYZob{}}\PY{n}{name}\PY{p}{:} \PY{n}{sbb}\PY{o}{.}\PY{n}{hubs}\PY{p}{[}\PY{n}{name}\PY{p}{]} \PY{k}{for} \PY{n}{name} \PY{o+ow}{in} \PY{n}{sbb}\PY{o}{.}\PY{n}{hubs} \PY{k}{if} \PY{n}{name} \PY{o+ow}{in} \PY{n}{solution\PYZus{}nodes}\PY{p}{\PYZcb{}}
+            \PY{n}{start\PYZus{}hub} \PY{o}{=} \PY{p}{\PYZob{}}\PY{n}{name}\PY{p}{:} \PY{n}{sbb}\PY{o}{.}\PY{n}{hubs}\PY{p}{[}\PY{n}{name}\PY{p}{]} \PY{k}{for} \PY{n}{name} \PY{o+ow}{in} \PY{n}{sbb}\PY{o}{.}\PY{n}{hubs} \PY{k}{if} \PY{n}{name} \PY{o}{==} \PY{n}{start}\PY{p}{\PYZcb{}}
+            \PY{n}{goal\PYZus{}hub} \PY{o}{=} \PY{p}{\PYZob{}}\PY{n}{name}\PY{p}{:} \PY{n}{sbb}\PY{o}{.}\PY{n}{hubs}\PY{p}{[}\PY{n}{name}\PY{p}{]} \PY{k}{for} \PY{n}{name} \PY{o+ow}{in} \PY{n}{sbb}\PY{o}{.}\PY{n}{hubs} \PY{k}{if} \PY{n}{name} \PY{o}{==} \PY{n}{goal}\PY{p}{\PYZcb{}}
+            
+            \PY{n}{plot\PYZus{}internal}\PY{p}{(}\PY{n}{sbb}\PY{o}{.}\PY{n}{hubs}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{silver}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+            \PY{n}{plot\PYZus{}internal}\PY{p}{(}\PY{n}{solution\PYZus{}hubs}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{orange}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+            \PY{n}{plot\PYZus{}internal}\PY{p}{(}\PY{n}{start\PYZus{}hub}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{green}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+            \PY{n}{plot\PYZus{}internal}\PY{p}{(}\PY{n}{goal\PYZus{}hub}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{red}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+            \PY{n}{plt}\PY{o}{.}\PY{n}{gca}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{all}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{solution}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{start}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{goal}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+            \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \hypertarget{breadth-first-search}{%
+\subsubsection{Breadth First Search}\label{breadth-first-search}}
+
+\begin{itemize}
+\tightlist
+\item
+  No endless loops (previous not explored again)
+\item
+  Time: O(b\^{}d) Space: O(b*d)
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} \PY{n}{start} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Rotkreuz}\PY{l+s+s1}{\PYZsq{}}
+        \PY{n}{goal} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Thalwil}\PY{l+s+s1}{\PYZsq{}}
+        \PY{n}{sbb\PYZus{}map} \PY{o}{=} \PY{n}{UndirectedGraph}\PY{p}{(}\PY{n}{sbb}\PY{o}{.}\PY{n}{createMap}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+        \PY{n}{problem} \PY{o}{=} \PY{n}{GraphProblem}\PY{p}{(}\PY{n}{start}\PY{p}{,} \PY{n}{goal}\PY{p}{,} \PY{n}{sbb\PYZus{}map}\PY{p}{)}
+        \PY{n}{node}\PY{p}{,} \PY{n}{exp}\PY{p}{,} \PY{n}{stored} \PY{o}{=} \PY{n}{breadth\PYZus{}first\PYZus{}graph\PYZus{}search}\PY{p}{(}\PY{n}{problem}\PY{p}{)}
+        \PY{n}{print\PYZus{}info\PYZus{}about\PYZus{}search}\PY{p}{(}\PY{n}{node}\PY{p}{,} \PY{n}{exp}\PY{p}{,} \PY{n}{stored}\PY{p}{)}
+        \PY{n}{plot\PYZus{}it}\PY{p}{(}\PY{n}{node}\PY{p}{,} \PY{n}{start}\PY{p}{,} \PY{n}{goal}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+The search algorithm reached Thalwil with a cost of 36.906.
+Nodes to visit: 17
+Nodes explored: 136
+Nodes stored: 18
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_20_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \hypertarget{depth-first-search}{%
+\subsubsection{Depth First Search}\label{depth-first-search}}
+
+\begin{itemize}
+\tightlist
+\item
+  No endless loops (previous not explored again)
+\item
+  Time: O(b\^{}m) Space: O(b*m)
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}10}]:} \PY{k}{def} \PY{n+nf}{depth\PYZus{}first\PYZus{}search}\PY{p}{(}\PY{n}{problem}\PY{p}{)}\PY{p}{:}
+             \PY{n}{n} \PY{o}{=} \PY{n}{Node}\PY{p}{(}\PY{n}{problem}\PY{o}{.}\PY{n}{initial}\PY{p}{)}
+             
+             \PY{k}{if} \PY{n}{problem}\PY{o}{.}\PY{n}{goal\PYZus{}test}\PY{p}{(}\PY{n}{n}\PY{o}{.}\PY{n}{state}\PY{p}{)}\PY{p}{:}
+                 \PY{k}{return} \PY{n}{n}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{0} \PY{c+c1}{\PYZsh{}found the goal node}
+             
+             \PY{n}{frontier} \PY{o}{=} \PY{n}{deque}\PY{p}{(}\PY{p}{[}\PY{n}{n}\PY{p}{]}\PY{p}{)} \PY{c+c1}{\PYZsh{}frontier}
+             \PY{n}{exp} \PY{o}{=} \PY{n+nb}{set}\PY{p}{(}\PY{p}{[}\PY{n}{n}\PY{p}{]}\PY{p}{)} \PY{c+c1}{\PYZsh{}explored}
+             
+             \PY{k}{while} \PY{n}{frontier}\PY{p}{:}
+                 \PY{n}{n} \PY{o}{=} \PY{n}{frontier}\PY{o}{.}\PY{n}{pop}\PY{p}{(}\PY{p}{)} \PY{c+c1}{\PYZsh{}get new node}
+                 \PY{n}{exp}\PY{o}{.}\PY{n}{add}\PY{p}{(}\PY{n}{n}\PY{p}{)}
+                 
+                 \PY{k}{if} \PY{n}{problem}\PY{o}{.}\PY{n}{goal\PYZus{}test}\PY{p}{(}\PY{n}{n}\PY{o}{.}\PY{n}{state}\PY{p}{)}\PY{p}{:}
+                     \PY{k}{return} \PY{n}{n}\PY{p}{,} \PY{n+nb}{len}\PY{p}{(}\PY{n}{exp}\PY{p}{)}\PY{p}{,} \PY{n+nb}{len}\PY{p}{(}\PY{n}{frontier}\PY{p}{)} \PY{c+c1}{\PYZsh{}found the goal node}
+                 
+                 \PY{k}{for} \PY{n}{c} \PY{o+ow}{in} \PY{n}{n}\PY{o}{.}\PY{n}{expand}\PY{p}{(}\PY{n}{problem}\PY{p}{)}\PY{p}{:}
+                     \PY{n}{visited} \PY{o}{=} \PY{p}{[}\PY{n}{n}\PY{o}{.}\PY{n}{state} \PY{k}{for} \PY{n}{n} \PY{o+ow}{in} \PY{n}{frontier}\PY{p}{]} \PY{o}{+} \PY{p}{[}\PY{n}{n}\PY{o}{.}\PY{n}{state} \PY{k}{for} \PY{n}{n} \PY{o+ow}{in} \PY{n}{exp}\PY{p}{]}
+                     \PY{k}{if} \PY{n}{c}\PY{o}{.}\PY{n}{state} \PY{o+ow}{not} \PY{o+ow}{in} \PY{n}{visited}\PY{p}{:}
+                         \PY{n}{frontier}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{c}\PY{p}{)}
+                         
+             \PY{k}{return} \PY{k+kc}{None}\PY{p}{,} \PY{n+nb}{len}\PY{p}{(}\PY{n}{exp}\PY{p}{)}\PY{p}{,} \PY{n+nb}{len}\PY{p}{(}\PY{n}{frontier}\PY{p}{)} \PY{c+c1}{\PYZsh{}no goal node found}
+         
+         \PY{n}{node}\PY{p}{,} \PY{n}{exp}\PY{p}{,} \PY{n}{stored} \PY{o}{=} \PY{n}{depth\PYZus{}first\PYZus{}search}\PY{p}{(}\PY{n}{problem}\PY{p}{)}
+         \PY{n}{print\PYZus{}info\PYZus{}about\PYZus{}search}\PY{p}{(}\PY{n}{node}\PY{p}{,} \PY{n}{exp}\PY{p}{,} \PY{n}{stored}\PY{p}{)}
+         \PY{n}{plot\PYZus{}it}\PY{p}{(}\PY{n}{node}\PY{p}{,} \PY{n}{start}\PY{p}{,} \PY{n}{goal}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+The search algorithm reached Thalwil with a cost of 740.0659999999996.
+Nodes to visit: 309
+Nodes explored: 937
+Nodes stored: 81
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_22_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \hypertarget{depth-limited-search}{%
+\subsubsection{Depth Limited Search}\label{depth-limited-search}}
+
+\begin{itemize}
+\tightlist
+\item
+  No endless loops (previous not explored again \& cutoff)
+\item
+  Time: O(b\^{}l) Space: O(b*l)
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}11}]:} \PY{k}{def} \PY{n+nf}{depth\PYZus{}limited\PYZus{}search}\PY{p}{(}\PY{n}{n}\PY{p}{,} \PY{n}{prob}\PY{p}{,} \PY{n}{l}\PY{p}{,} \PY{n}{exp}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{:}
+             \PY{k}{if} \PY{n}{prob}\PY{o}{.}\PY{n}{goal\PYZus{}test}\PY{p}{(}\PY{n}{n}\PY{o}{.}\PY{n}{state}\PY{p}{)}\PY{p}{:}
+                 \PY{k}{return} \PY{n}{n}\PY{p}{,} \PY{n}{exp} \PY{c+c1}{\PYZsh{} found goal node}
+             
+             \PY{k}{elif} \PY{n}{l} \PY{o}{==} \PY{l+m+mi}{0}\PY{p}{:}
+                 \PY{k}{return} \PY{k+kc}{True}\PY{p}{,} \PY{n}{exp}
+             
+             \PY{k}{else}\PY{p}{:}
+                 \PY{n}{cut} \PY{o}{=} \PY{k+kc}{False}
+                 \PY{k}{for} \PY{n}{c} \PY{o+ow}{in} \PY{n}{n}\PY{o}{.}\PY{n}{expand}\PY{p}{(}\PY{n}{prob}\PY{p}{)}\PY{p}{:}
+                     \PY{n}{r}\PY{p}{,} \PY{n}{exp} \PY{o}{=} \PY{n}{depth\PYZus{}limited\PYZus{}search}\PY{p}{(}\PY{n}{c}\PY{p}{,} \PY{n}{prob}\PY{p}{,} \PY{n}{l}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{exp}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}
+                     
+                     \PY{k}{if} \PY{n+nb}{isinstance}\PY{p}{(}\PY{n}{r}\PY{p}{,} \PY{n}{Node}\PY{p}{)}\PY{p}{:}
+                         \PY{k}{return} \PY{n}{r}\PY{p}{,} \PY{n}{exp}
+                     \PY{k}{elif} \PY{n}{r} \PY{o+ow}{is} \PY{k+kc}{True}\PY{p}{:}
+                         \PY{n}{c} \PY{o}{=} \PY{k+kc}{True}
+                         
+                 \PY{k}{if} \PY{n}{c} \PY{o+ow}{is} \PY{k+kc}{True}\PY{p}{:}
+                     \PY{k}{return} \PY{k+kc}{True}\PY{p}{,} \PY{n}{exp}
+                 \PY{k}{else}\PY{p}{:}
+                     \PY{k}{return} \PY{k+kc}{False}\PY{p}{,} \PY{n}{exp}
+                 
+         \PY{n}{n}\PY{p}{,} \PY{n}{exp} \PY{o}{=} \PY{n}{depth\PYZus{}limited\PYZus{}search}\PY{p}{(}\PY{n}{Node}\PY{p}{(}\PY{n}{problem}\PY{o}{.}\PY{n}{initial}\PY{p}{)}\PY{p}{,} \PY{n}{problem}\PY{p}{,} \PY{l+m+mi}{20}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{)}
+         \PY{n}{print\PYZus{}info\PYZus{}about\PYZus{}search}\PY{p}{(}\PY{n}{n}\PY{p}{,} \PY{n}{exp}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{)}
+         \PY{n}{plot\PYZus{}it}\PY{p}{(}\PY{n}{n}\PY{p}{,} \PY{n}{start}\PY{p}{,} \PY{n}{goal}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+The search algorithm reached Thalwil with a cost of 36.906.
+Nodes to visit: 17
+Nodes explored: 16
+Nodes stored: 0
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_24_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \hypertarget{iterative-depth-first-search}{%
+\subsubsection{Iterative Depth First
+Search}\label{iterative-depth-first-search}}
+
+\begin{itemize}
+\tightlist
+\item
+  No endless loops (previous not explored again \& cutoff)
+\item
+  Time: O(b\^{}d) Space: O(b*d)
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}12}]:} \PY{k}{def} \PY{n+nf}{iter\PYZus{}depth\PYZus{}search}\PY{p}{(}\PY{n}{prob}\PY{p}{,} \PY{n}{exp}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{:}
+             \PY{n}{limit} \PY{o}{=} \PY{l+m+mi}{1}
+             \PY{n}{iteration} \PY{o}{=} \PY{l+m+mi}{0}
+             \PY{n}{max\PYZus{}iterations} \PY{o}{=} \PY{l+m+mi}{10000}
+             \PY{k}{while} \PY{n}{iteration} \PY{o}{\PYZlt{}} \PY{n}{max\PYZus{}iterations}\PY{p}{:}
+                 \PY{n}{iteration} \PY{o}{=} \PY{n}{iteration} \PY{o}{+} \PY{l+m+mi}{1}
+                 \PY{n}{r}\PY{p}{,} \PY{n}{exp} \PY{o}{=} \PY{n}{depth\PYZus{}limited\PYZus{}search}\PY{p}{(}\PY{n}{Node}\PY{p}{(}\PY{n}{prob}\PY{o}{.}\PY{n}{initial}\PY{p}{)}\PY{p}{,} \PY{n}{prob}\PY{p}{,} \PY{n}{limit}\PY{p}{,} \PY{n}{exp}\PY{p}{)}
+                 
+                 \PY{k}{if} \PY{n+nb}{isinstance}\PY{p}{(}\PY{n}{r}\PY{p}{,} \PY{n}{Node}\PY{p}{)}\PY{p}{:}
+                     \PY{k}{return} \PY{n}{r}\PY{p}{,} \PY{n}{exp}
+                 \PY{k}{elif} \PY{n}{r} \PY{o+ow}{is} \PY{k+kc}{False}\PY{p}{:}
+                     \PY{k}{return} \PY{k+kc}{None}\PY{p}{,} \PY{n}{exp}
+                 \PY{k}{else}\PY{p}{:} 
+                     \PY{n}{limit} \PY{o}{=} \PY{n}{limit} \PY{o}{+} \PY{l+m+mi}{1}
+                     
+         \PY{n}{n}\PY{p}{,} \PY{n}{exp} \PY{o}{=} \PY{n}{iter\PYZus{}depth\PYZus{}search}\PY{p}{(}\PY{n}{problem}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{)}
+         \PY{n}{print\PYZus{}info\PYZus{}about\PYZus{}search}\PY{p}{(}\PY{n}{n}\PY{p}{,} \PY{n}{exp}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{)}
+         \PY{n}{plot\PYZus{}it}\PY{p}{(}\PY{n}{n}\PY{p}{,} \PY{n}{start}\PY{p}{,} \PY{n}{goal}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+The search algorithm reached Thalwil with a cost of 36.906.
+Nodes to visit: 17
+Nodes explored: 3446220
+Nodes stored: 0
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_26_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \hypertarget{uniform-cost-search}{%
+\subsubsection{Uniform Cost Search}\label{uniform-cost-search}}
+
+\begin{itemize}
+\tightlist
+\item
+  Somehow not working
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}14}]:} \PY{k}{def} \PY{n+nf}{uniform\PYZus{}cost\PYZus{}search}\PY{p}{(}\PY{n}{prob}\PY{p}{)}\PY{p}{:}
+             \PY{n}{n} \PY{o}{=} \PY{n}{Node}\PY{p}{(}\PY{n}{prob}\PY{o}{.}\PY{n}{initial}\PY{p}{)}
+             
+             \PY{n}{frontier} \PY{o}{=} \PY{n}{PriorityQueue}\PY{p}{(}\PY{p}{)}
+             \PY{n}{frontier}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{n}\PY{p}{)}
+             \PY{n}{exp} \PY{o}{=} \PY{n+nb}{set}\PY{p}{(}\PY{p}{[}\PY{n}{n}\PY{p}{]}\PY{p}{)}
+             
+             \PY{n}{iteration} \PY{o}{=} \PY{l+m+mi}{0}
+             \PY{n}{max\PYZus{}iterations} \PY{o}{=} \PY{l+m+mi}{10000}
+             
+             \PY{k}{while} \PY{n+nb}{len}\PY{p}{(}\PY{n}{frontier}\PY{p}{)} \PY{o}{\PYZgt{}} \PY{l+m+mi}{0} \PY{o+ow}{and} \PY{n}{iteration} \PY{o}{\PYZlt{}} \PY{n}{max\PYZus{}iterations}\PY{p}{:}
+                 \PY{n}{iteration} \PY{o}{=} \PY{n}{iteration} \PY{o}{+} \PY{l+m+mi}{1}
+                 \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Iteration:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{iteration}\PY{p}{)}
+                 \PY{n}{n} \PY{o}{=} \PY{n}{frontier}\PY{o}{.}\PY{n}{pop}\PY{p}{(}\PY{p}{)}
+                 
+                 \PY{k}{if} \PY{n}{prob}\PY{o}{.}\PY{n}{goal\PYZus{}test}\PY{p}{(}\PY{n}{n}\PY{o}{.}\PY{n}{state}\PY{p}{)}\PY{p}{:}
+                     \PY{k}{return} \PY{n}{n}\PY{p}{,} \PY{n+nb}{len}\PY{p}{(}\PY{n}{exp}\PY{p}{)}\PY{p}{,} \PY{n+nb}{len}\PY{p}{(}\PY{n}{frontier}\PY{p}{)}
+                 
+                 \PY{n}{exp}\PY{o}{.}\PY{n}{add}\PY{p}{(}\PY{n}{n}\PY{p}{)}
+                 
+                 \PY{k}{for} \PY{n}{c} \PY{o+ow}{in} \PY{n}{n}\PY{o}{.}\PY{n}{expand}\PY{p}{(}\PY{n}{prob}\PY{p}{)}\PY{p}{:}
+                     \PY{k}{if} \PY{n}{c} \PY{o+ow}{is} \PY{o+ow}{not} \PY{k+kc}{None} \PY{o+ow}{and} \PY{n}{c} \PY{o+ow}{not} \PY{o+ow}{in} \PY{n}{exp} \PY{o+ow}{and} \PY{n}{frontier}\PY{o}{.}\PY{n+nf+fm}{\PYZus{}\PYZus{}contains\PYZus{}\PYZus{}}\PY{p}{(}\PY{n}{c}\PY{p}{)}\PY{p}{:}
+                         \PY{n}{frontier}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{c}\PY{p}{)}
+                     \PY{k}{elif} \PY{o+ow}{not} \PY{n}{frontier}\PY{o}{.}\PY{n+nf+fm}{\PYZus{}\PYZus{}contains\PYZus{}\PYZus{}}\PY{p}{(}\PY{n}{c}\PY{p}{)}\PY{p}{:}
+                         \PY{n}{frontier}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{c}\PY{p}{)}
+                             
+             \PY{k}{return} \PY{k+kc}{None}\PY{p}{,} \PY{n+nb}{len}\PY{p}{(}\PY{n}{exp}\PY{p}{)}\PY{p}{,} \PY{n+nb}{len}\PY{p}{(}\PY{n}{frontier}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{}n, exp, stored = uniform\PYZus{}cost\PYZus{}search(problem)}
+         \PY{k}{if} \PY{n}{n} \PY{o+ow}{is} \PY{o+ow}{not} \PY{k+kc}{None}\PY{p}{:}
+             \PY{n}{print\PYZus{}info\PYZus{}about\PYZus{}search}\PY{p}{(}\PY{n}{n}\PY{p}{,} \PY{n}{exp}\PY{p}{,} \PY{n}{stored}\PY{p}{)}
+             \PY{n}{plot\PYZus{}it}\PY{p}{(}\PY{n}{node}\PY{p}{,} \PY{n}{start}\PY{p}{,} \PY{n}{goal}\PY{p}{)}
+         \PY{k}{else}\PY{p}{:}
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Uniform Cost Search: Not Solution}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+The search algorithm reached Thalwil with a cost of 36.906.
+Nodes to visit: 17
+Nodes explored: 3446220
+Nodes stored: 81
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_28_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
