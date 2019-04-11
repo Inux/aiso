@@ -88,8 +88,8 @@ class GraphProblem():
     def path_cost(self, cost_so_far, A, action, B):
         return cost_so_far + (self.graph.get(A, B) or infinity)
 
+@total_ordering
 class Node:
-
     """A node in a search tree. Contains a pointer to the parent (the node
     that this is a successor of) and to the actual state for this node. Note
     that if a state is arrived at by two paths, then there are two nodes with
@@ -100,22 +100,42 @@ class Node:
     subclass this class."""
 
     def __init__(self, state, parent=None, action=None, path_cost=0):
-        """ implement the attributes of the node class"""
-        raise NotImplementedError
-        
-    def exapand(self, problem):
+        """Create a search tree Node, derived from a parent by an action."""
+        self.state = state
+        self.parent = parent
+        self.action = action
+        self.path_cost = path_cost
+        self.depth = 0
+        if parent:
+            self.depth = parent.depth + 1
+
+        DFS = 309, 1028
+        DLS =  309, 16
+        DFS = 309, 3446220
+
+    def expand(self, problem):
         """List the nodes reachable in one step from this node."""
-        raise NotImplementedError
-    
+        return [self.child_node(problem, action)
+                for action in problem.actions(self.state)]
+
     def child_node(self, problem, action):
-        """Return the child node reached by a given action"""
-        raise NotImplementedError
-        
+        next_state = problem.result(self.state, action)
+        next_node = Node(next_state, self, action,
+                    problem.path_cost(self.path_cost, self.state,
+                                      action, next_state))
+        return next_node
+
     def solution(self):
         """Return the sequence of actions to go from the root to this node."""
-        raise NotImplementedError
-    
+        return [node.action for node in self.path()[1:]]
+
+    def __lt__(self, other):
+        return self.path_cost < other.path_cost
+
     def path(self):
         """Return a list of nodes forming the path from the root to this node."""
-        raise NotImplementedError
-
+        node, path_back = self, []
+        while node:
+            path_back.append(node)
+            node = node.parent
+        return list(reversed(path_back))
