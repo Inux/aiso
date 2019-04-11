@@ -1,0 +1,847 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{03\_local\_search}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \hypertarget{testat-local-search}{%
+\section{Testat Local Search}\label{testat-local-search}}
+
+\hypertarget{info}{%
+\subsection{Info}\label{info}}
+
+\begin{itemize}
+\tightlist
+\item
+  All Questions answerd in the Document itself.
+\item
+  Only hill climbing done so far (but as requested in Testat)
+\item
+  This exercise was done in a Team (Michael Nebroj \& Steve Ineichen)
+\item
+  Code can be found on https://github.com/Inux/aiso
+\end{itemize}
+
+    \hypertarget{local-search-algorithms}{%
+\subsection{Local Search Algorithms}\label{local-search-algorithms}}
+
+We have seen the following local search algorithms in class:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Hill Climbing
+\item
+  Genetic Algorithm
+\item
+  Simulated Annealing
+\end{enumerate}
+
+Two test these algorithms, we want to find the shortest path connecting
+several cities. Here, we can simplify and consider the aerial distance
+between two cities, so that we don't have to care about how to get from
+one city to another. This problem is known as the ``Traveling Sales(man)
+Problem''.
+
+Implement the algorithms to find the shortest path connecting a list of
+cities of your choice! You can use the following helper functions to
+plot your path and to evaluate a path cost.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}204}]:} \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+          
+          \PY{k}{def} \PY{n+nf}{plot\PYZus{}path}\PY{p}{(}\PY{n}{path}\PY{p}{,} \PY{n}{sbb}\PY{p}{)}\PY{p}{:}
+              \PY{n}{fig} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{,}\PY{l+m+mi}{10}\PY{p}{)}\PY{p}{)}
+              \PY{n}{last\PYZus{}city} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZdq{}}
+              \PY{n}{hub\PYZus{}coordinates} \PY{o}{=} \PY{n}{sbb}\PY{o}{.}\PY{n}{get\PYZus{}hub\PYZus{}locations}\PY{p}{(}\PY{p}{)}
+              \PY{n}{count} \PY{o}{=} \PY{l+m+mi}{0}
+              \PY{k}{for} \PY{n}{city} \PY{o+ow}{in} \PY{n}{path}\PY{p}{:}
+                  \PY{k}{if} \PY{n}{last\PYZus{}city} \PY{o}{==} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:}
+                      \PY{n}{first\PYZus{}city} \PY{o}{=} \PY{n}{city}\PY{p}{;}
+                  \PY{k}{if} \PY{n}{last\PYZus{}city} \PY{o}{!=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:}
+                      \PY{k}{if} \PY{n}{count} \PY{o}{==} \PY{l+m+mi}{0}\PY{p}{:}
+                          \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{p}{[}\PY{n}{hub\PYZus{}coordinates}\PY{p}{[}\PY{n}{city}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{hub\PYZus{}coordinates}\PY{p}{[}\PY{n}{last\PYZus{}city}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{n}{hub\PYZus{}coordinates}\PY{p}{[}\PY{n}{city}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{hub\PYZus{}coordinates}\PY{p}{[}\PY{n}{last\PYZus{}city}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{]}\PY{p}{,} \PY{n}{marker}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{.}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{blue}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+                      \PY{k}{else}\PY{p}{:}
+                          \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{p}{[}\PY{n}{hub\PYZus{}coordinates}\PY{p}{[}\PY{n}{city}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{hub\PYZus{}coordinates}\PY{p}{[}\PY{n}{last\PYZus{}city}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{n}{hub\PYZus{}coordinates}\PY{p}{[}\PY{n}{city}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{hub\PYZus{}coordinates}\PY{p}{[}\PY{n}{last\PYZus{}city}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{]}\PY{p}{,} \PY{n}{marker}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{.}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{black}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+                  \PY{n}{plt}\PY{o}{.}\PY{n}{text}\PY{p}{(}\PY{n}{hub\PYZus{}coordinates}\PY{p}{[}\PY{n}{city}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{\PYZhy{}}\PY{l+m+mf}{0.75}\PY{p}{,} \PY{n}{hub\PYZus{}coordinates}\PY{p}{[}\PY{n}{city}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{+}\PY{l+m+mf}{1.0}\PY{p}{,} \PY{n}{city}\PY{o}{+}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ (}\PY{l+s+s2}{\PYZdq{}}\PY{o}{+}\PY{n+nb}{str}\PY{p}{(}\PY{n}{count}\PY{p}{)}\PY{o}{+}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{)}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{fontsize}\PY{o}{=}\PY{l+m+mi}{9}\PY{p}{)}
+                  \PY{n}{last\PYZus{}city} \PY{o}{=} \PY{n}{city}\PY{p}{;}
+                  
+                  \PY{n}{count} \PY{o}{=} \PY{n}{count} \PY{o}{+} \PY{l+m+mi}{1}
+                          
+              \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{p}{[}\PY{n}{hub\PYZus{}coordinates}\PY{p}{[}\PY{n}{first\PYZus{}city}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{hub\PYZus{}coordinates}\PY{p}{[}\PY{n}{last\PYZus{}city}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{n}{hub\PYZus{}coordinates}\PY{p}{[}\PY{n}{first\PYZus{}city}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{hub\PYZus{}coordinates}\PY{p}{[}\PY{n}{last\PYZus{}city}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{]}\PY{p}{,} \PY{n}{marker}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{.}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{green}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+              \PY{n}{plt}\PY{o}{.}\PY{n}{axis}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{equal}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          
+          \PY{k}{def} \PY{n+nf}{evaluate\PYZus{}path}\PY{p}{(}\PY{n}{path}\PY{p}{,} \PY{n}{sbb}\PY{p}{)}\PY{p}{:}
+              \PY{n}{l} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{n}{path}\PY{o}{.}\PY{n}{copy}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+              \PY{n}{length} \PY{o}{=} \PY{l+m+mi}{0}
+              \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{l}\PY{p}{)}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{:}
+                  \PY{n}{length} \PY{o}{=} \PY{n}{length} \PY{o}{+} \PY{n}{sbb}\PY{o}{.}\PY{n}{get\PYZus{}distance\PYZus{}between}\PY{p}{(}\PY{n}{l}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{,} \PY{n}{l}\PY{p}{[}\PY{n}{i}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+          
+              \PY{k}{return} \PY{n}{length}
+\end{Verbatim}
+
+
+    Let's define the cities we want to connect and viualize our initial
+path.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}205}]:} \PY{k+kn}{from} \PY{n+nn}{sbb} \PY{k}{import} \PY{n}{SBB}
+          
+          \PY{n}{sbb} \PY{o}{=} \PY{n}{SBB}\PY{p}{(}\PY{p}{)}
+          \PY{n}{sbb}\PY{o}{.}\PY{n}{importData}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{linie\PYZhy{}mit\PYZhy{}betriebspunkten.json}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          
+          \PY{n}{path} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Bern}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Luzern}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Bern \PYZhy{} Luzern: path cost = }\PY{l+s+s2}{\PYZdq{}} \PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n}{evaluate\PYZus{}path}\PY{p}{(}\PY{n}{path}\PY{p}{,} \PY{n}{sbb}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+          
+          \PY{n}{path} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Luzern}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Bern}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Luzern \PYZhy{} Bern: path cost = }\PY{l+s+s2}{\PYZdq{}} \PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n}{evaluate\PYZus{}path}\PY{p}{(}\PY{n}{path}\PY{p}{,} \PY{n}{sbb}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+          
+          \PY{n}{path} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Luzern}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Bern}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Luzern}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Luzern \PYZhy{} Bern \PYZhy{} Luzern: path cost = }\PY{l+s+s2}{\PYZdq{}} \PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n}{evaluate\PYZus{}path}\PY{p}{(}\PY{n}{path}\PY{p}{,} \PY{n}{sbb}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+          
+          \PY{n}{plot\PYZus{}path}\PY{p}{(}\PY{n}{path}\PY{p}{,} \PY{n}{sbb}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+successfully imported 2787 hubs
+successfully imported 401 train lines
+Bern - Luzern: path cost = 87.69281937407082
+Luzern - Bern: path cost = 87.69281937407082
+Luzern - Bern - Luzern: path cost = 175.38563874814164
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_4_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    This is defenitly not the best way how to connect the cities. Let's try
+our first local search algorithm.
+
+    \hypertarget{hill-climbing}{%
+\subsubsection{Hill Climbing}\label{hill-climbing}}
+
+If we have 15 cities to connect, we have 15! different possibilities.
+This is already bigger than 10\^{}12. You can easily see that the
+problem becomes complex very quickly. We will have problems to
+systematically explore the search space. Therefore, we will use local
+search algorithms to tackle this problem.
+
+Local search algorithms start with a solution and try to improve the
+solution by considering the neighbouring states. The best neighbour will
+be chosen until no better can be found.
+
+Here, we try to minimize the distance of our path. So instead of hill
+climbing, we will do the opposite. Instead of trying to find the highest
+hill (maximum), we're looking at the deepest valley (minimum). But
+that's not a concern, we can easily change the sign to switch from a
+maximization to a minimization problem.
+
+\emph{Hints:} - use the \texttt{evaluate\_path()} function we have
+defined earlier - make sure to copy lists or sets properly:
+\texttt{current\_path\ =\ path.copy()} - you can convert sets to lists
+by \texttt{list(my\_set)} - a neighbouring path can be found by
+switching the position of two cities
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}206}]:} \PY{k+kn}{import} \PY{n+nn}{sys} 
+          \PY{k+kn}{import} \PY{n+nn}{random}
+          
+          \PY{k}{def} \PY{n+nf}{hill\PYZus{}climbing\PYZus{}TSP}\PY{p}{(}\PY{n}{path}\PY{p}{,} \PY{n}{sbb}\PY{p}{)}\PY{p}{:} 
+              \PY{n}{search\PYZus{}path} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{n}{path}\PY{p}{)}\PY{o}{.}\PY{n}{copy}\PY{p}{(}\PY{p}{)}
+              
+              \PY{n}{result} \PY{o}{=} \PY{n}{search\PYZus{}path}\PY{o}{.}\PY{n}{copy}\PY{p}{(}\PY{p}{)}
+              \PY{n}{new\PYZus{}result} \PY{o}{=} \PY{n}{result}\PY{o}{.}\PY{n}{copy}\PY{p}{(}\PY{p}{)}
+              
+              \PY{n}{max\PYZus{}iterations} \PY{o}{=} \PY{n+nb}{len}\PY{p}{(}\PY{n}{path}\PY{p}{)}\PY{o}{*}\PY{l+m+mi}{10}
+              \PY{n}{find\PYZus{}result\PYZus{}attempts} \PY{o}{=} \PY{n+nb}{len}\PY{p}{(}\PY{n}{path}\PY{p}{)}
+              \PY{n}{remaining\PYZus{}attempts} \PY{o}{=} \PY{n}{find\PYZus{}result\PYZus{}attempts}
+              
+              \PY{n}{iteration\PYZus{}count} \PY{o}{=} \PY{l+m+mi}{0}
+              
+              \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Max Iterations: }\PY{l+s+si}{\PYZob{}0\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{max\PYZus{}iterations}\PY{p}{)}\PY{p}{)}
+              \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Max Attempts: }\PY{l+s+si}{\PYZob{}0\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{find\PYZus{}result\PYZus{}attempts}\PY{p}{)}\PY{p}{)}
+              \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Remaining Attempts: }\PY{l+s+si}{\PYZob{}0\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{remaining\PYZus{}attempts}\PY{p}{)}\PY{p}{)}
+              \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+              
+              \PY{k}{for} \PY{n}{iteration} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{max\PYZus{}iterations}\PY{p}{)}\PY{p}{:}
+                  \PY{n}{iteration\PYZus{}count} \PY{o}{=} \PY{n}{iteration\PYZus{}count} \PY{o}{+} \PY{l+m+mi}{1}
+                  
+                  \PY{c+c1}{\PYZsh{} https://stackoverflow.com/questions/14971181/hill\PYZhy{}climbing\PYZhy{}search\PYZhy{}algorithm\PYZhy{}applied\PYZhy{}to\PYZhy{}travelling\PYZhy{}salesman}
+                  \PY{c+c1}{\PYZsh{}}
+                  \PY{c+c1}{\PYZsh{} \PYZhy{} start with given path, maybe its a good one already}
+                  \PY{c+c1}{\PYZsh{} \PYZhy{} len(path)\PYZhy{}2 because we dont want to change start and end position}
+                  \PY{c+c1}{\PYZsh{} }
+                  \PY{k}{for} \PY{n}{index} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{n+nb}{len}\PY{p}{(}\PY{n}{path}\PY{p}{)}\PY{o}{\PYZhy{}}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{:}
+                      \PY{k}{if} \PY{n}{index} \PY{o}{\PYZgt{}} \PY{l+m+mi}{0}\PY{p}{:} \PY{c+c1}{\PYZsh{}check given path normally, without swapping}
+                          \PY{n}{new\PYZus{}result}\PY{p}{[}\PY{n}{index}\PY{p}{]}\PY{p}{,} \PY{n}{new\PYZus{}result}\PY{p}{[}\PY{n}{index}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{]} \PY{o}{=} \PY{n}{new\PYZus{}result}\PY{p}{[}\PY{n}{index}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{new\PYZus{}result}\PY{p}{[}\PY{n}{index}\PY{p}{]}
+                      
+                      \PY{k}{if} \PY{n}{evaluate\PYZus{}path}\PY{p}{(}\PY{n}{new\PYZus{}result}\PY{p}{,} \PY{n}{sbb}\PY{p}{)} \PY{o}{\PYZlt{}} \PY{n}{evaluate\PYZus{}path}\PY{p}{(}\PY{n}{result}\PY{p}{,} \PY{n}{sbb}\PY{p}{)}\PY{p}{:} 
+                          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{INFO: sp\PYZus{}copy: }\PY{l+s+si}{\PYZob{}0\PYZcb{}}\PY{l+s+s2}{ \PYZlt{} result: }\PY{l+s+si}{\PYZob{}1\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{evaluate\PYZus{}path}\PY{p}{(}\PY{n}{new\PYZus{}result}\PY{p}{,} \PY{n}{sbb}\PY{p}{)}\PY{p}{,} \PY{n}{evaluate\PYZus{}path}\PY{p}{(}\PY{n}{new\PYZus{}result}\PY{p}{,} \PY{n}{sbb}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+                          \PY{n}{result} \PY{o}{=} \PY{n}{new\PYZus{}result}\PY{o}{.}\PY{n}{copy}\PY{p}{(}\PY{p}{)}
+                          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{INFO: new result \PYZhy{}\PYZgt{} score: }\PY{l+s+si}{\PYZob{}0\PYZcb{}}\PY{l+s+s2}{, path: }\PY{l+s+si}{\PYZob{}1\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{evaluate\PYZus{}path}\PY{p}{(}\PY{n}{result}\PY{p}{,} \PY{n}{sbb}\PY{p}{)}\PY{p}{,} \PY{n}{result}\PY{p}{)}\PY{p}{)}
+                      \PY{k}{else}\PY{p}{:}
+                          \PY{c+c1}{\PYZsh{}no better result}
+                          \PY{n}{remaining\PYZus{}attempts} \PY{o}{=} \PY{n}{remaining\PYZus{}attempts} \PY{o}{\PYZhy{}} \PY{l+m+mi}{1}
+          
+                          \PY{c+c1}{\PYZsh{}randomize if shifting brings no better result}
+                          \PY{k}{if} \PY{n}{remaining\PYZus{}attempts} \PY{o}{\PYZlt{}}\PY{o}{=} \PY{l+m+mi}{0}\PY{p}{:}
+                              \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ERROR: }\PY{l+s+si}{\PYZob{}0\PYZcb{}}\PY{l+s+s2}{ times no better result! Randomize!}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{find\PYZus{}result\PYZus{}attempts}\PY{o}{\PYZhy{}}\PY{n}{remaining\PYZus{}attempts}\PY{p}{)}\PY{p}{)}
+                              \PY{n}{r} \PY{o}{=} \PY{n}{new\PYZus{}result}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{:}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{new\PYZus{}result}\PY{p}{)}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{]}
+                              \PY{n}{random}\PY{o}{.}\PY{n}{shuffle}\PY{p}{(}\PY{n}{r}\PY{p}{)}
+                              \PY{n}{new\PYZus{}result}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{:}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{new\PYZus{}result}\PY{p}{)}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{]} \PY{o}{=} \PY{n}{r}
+          
+                              \PY{c+c1}{\PYZsh{}give again same amount of attempts}
+                              \PY{n}{remaining\PYZus{}attempts} \PY{o}{=} \PY{n}{find\PYZus{}result\PYZus{}attempts} 
+                      
+              \PY{k}{return} \PY{n}{result}\PY{p}{,} \PY{n}{iteration\PYZus{}count}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}207}]:} \PY{n}{path} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Bern}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Sargans}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Liestal}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Lugano}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Locarno}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Luzern}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Schaan\PYZhy{}Vaduz}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Zermatt}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+          
+          \PY{n}{best\PYZus{}path}\PY{p}{,} \PY{n}{iterations} \PY{o}{=} \PY{n}{hill\PYZus{}climbing\PYZus{}TSP}\PY{p}{(}\PY{n}{path}\PY{p}{,} \PY{n}{sbb}\PY{p}{)}
+          
+          \PY{n}{plot\PYZus{}path}\PY{p}{(}\PY{n}{best\PYZus{}path}\PY{p}{,} \PY{n}{sbb}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Input Path:    }\PY{l+s+s2}{\PYZdq{}} \PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n}{path}\PY{p}{)}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Result Path:   }\PY{l+s+s2}{\PYZdq{}} \PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n}{best\PYZus{}path}\PY{p}{)}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Input Length:  }\PY{l+s+s2}{\PYZdq{}} \PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n}{evaluate\PYZus{}path}\PY{p}{(}\PY{n}{path}\PY{p}{,}\PY{n}{sbb}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Result Length: }\PY{l+s+s2}{\PYZdq{}} \PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n}{evaluate\PYZus{}path}\PY{p}{(}\PY{n}{best\PYZus{}path}\PY{p}{,}\PY{n}{sbb}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Iterations:    }\PY{l+s+s2}{\PYZdq{}} \PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n}{iterations}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Max Iterations: 80
+Max Attempts: 8
+Remaining Attempts: 8
+
+INFO: sp\_copy: 806.4269293088845 < result: 806.4269293088845
+INFO: new result -> score: 806.4269293088845, path: ['Bern', 'Liestal', 'Sargans', 'Lugano', 'Locarno', 'Luzern', 'Schaan-Vaduz', 'Zermatt']
+INFO: sp\_copy: 712.5938229521732 < result: 712.5938229521732
+INFO: new result -> score: 712.5938229521732, path: ['Bern', 'Liestal', 'Lugano', 'Locarno', 'Luzern', 'Sargans', 'Schaan-Vaduz', 'Zermatt']
+INFO: sp\_copy: 707.554267062716 < result: 707.554267062716
+INFO: new result -> score: 707.554267062716, path: ['Bern', 'Liestal', 'Lugano', 'Locarno', 'Luzern', 'Schaan-Vaduz', 'Sargans', 'Zermatt']
+ERROR: 8 times no better result! Randomize!
+ERROR: 8 times no better result! Randomize!
+ERROR: 8 times no better result! Randomize!
+ERROR: 8 times no better result! Randomize!
+ERROR: 8 times no better result! Randomize!
+ERROR: 8 times no better result! Randomize!
+ERROR: 8 times no better result! Randomize!
+ERROR: 8 times no better result! Randomize!
+ERROR: 8 times no better result! Randomize!
+ERROR: 8 times no better result! Randomize!
+ERROR: 8 times no better result! Randomize!
+ERROR: 8 times no better result! Randomize!
+ERROR: 8 times no better result! Randomize!
+ERROR: 8 times no better result! Randomize!
+ERROR: 8 times no better result! Randomize!
+INFO: sp\_copy: 605.3501579136067 < result: 605.3501579136067
+INFO: new result -> score: 605.3501579136067, path: ['Bern', 'Liestal', 'Luzern', 'Locarno', 'Sargans', 'Schaan-Vaduz', 'Lugano', 'Zermatt']
+INFO: sp\_copy: 605.1713138968423 < result: 605.1713138968423
+INFO: new result -> score: 605.1713138968423, path: ['Bern', 'Liestal', 'Luzern', 'Locarno', 'Schaan-Vaduz', 'Sargans', 'Lugano', 'Zermatt']
+ERROR: 8 times no better result! Randomize!
+ERROR: 8 times no better result! Randomize!
+INFO: sp\_copy: 597.2241286025006 < result: 597.2241286025006
+INFO: new result -> score: 597.2241286025006, path: ['Bern', 'Liestal', 'Luzern', 'Locarno', 'Lugano', 'Schaan-Vaduz', 'Sargans', 'Zermatt']
+ERROR: 8 times no better result! Randomize!
+ERROR: 8 times no better result! Randomize!
+ERROR: 8 times no better result! Randomize!
+ERROR: 8 times no better result! Randomize!
+ERROR: 8 times no better result! Randomize!
+INFO: sp\_copy: 525.0462844915054 < result: 525.0462844915054
+INFO: new result -> score: 525.0462844915054, path: ['Bern', 'Liestal', 'Luzern', 'Sargans', 'Schaan-Vaduz', 'Locarno', 'Lugano', 'Zermatt']
+INFO: sp\_copy: 518.1667903253285 < result: 518.1667903253285
+INFO: new result -> score: 518.1667903253285, path: ['Bern', 'Liestal', 'Luzern', 'Schaan-Vaduz', 'Sargans', 'Locarno', 'Lugano', 'Zermatt']
+ERROR: 8 times no better result! Randomize!
+ERROR: 8 times no better result! Randomize!
+ERROR: 8 times no better result! Randomize!
+ERROR: 8 times no better result! Randomize!
+ERROR: 8 times no better result! Randomize!
+ERROR: 8 times no better result! Randomize!
+ERROR: 8 times no better result! Randomize!
+ERROR: 8 times no better result! Randomize!
+ERROR: 8 times no better result! Randomize!
+ERROR: 8 times no better result! Randomize!
+ERROR: 8 times no better result! Randomize!
+ERROR: 8 times no better result! Randomize!
+ERROR: 8 times no better result! Randomize!
+ERROR: 8 times no better result! Randomize!
+ERROR: 8 times no better result! Randomize!
+ERROR: 8 times no better result! Randomize!
+ERROR: 8 times no better result! Randomize!
+ERROR: 8 times no better result! Randomize!
+ERROR: 8 times no better result! Randomize!
+ERROR: 8 times no better result! Randomize!
+ERROR: 8 times no better result! Randomize!
+ERROR: 8 times no better result! Randomize!
+ERROR: 8 times no better result! Randomize!
+ERROR: 8 times no better result! Randomize!
+ERROR: 8 times no better result! Randomize!
+ERROR: 8 times no better result! Randomize!
+ERROR: 8 times no better result! Randomize!
+ERROR: 8 times no better result! Randomize!
+ERROR: 8 times no better result! Randomize!
+ERROR: 8 times no better result! Randomize!
+ERROR: 8 times no better result! Randomize!
+ERROR: 8 times no better result! Randomize!
+ERROR: 8 times no better result! Randomize!
+ERROR: 8 times no better result! Randomize!
+ERROR: 8 times no better result! Randomize!
+ERROR: 8 times no better result! Randomize!
+ERROR: 8 times no better result! Randomize!
+
+Input Path:    ['Bern', 'Sargans', 'Liestal', 'Lugano', 'Locarno', 'Luzern', 'Schaan-Vaduz', 'Zermatt']
+Result Path:   ['Bern', 'Liestal', 'Luzern', 'Schaan-Vaduz', 'Sargans', 'Locarno', 'Lugano', 'Zermatt']
+Input Length:  1022.4946103114211
+Result Length: 518.1667903253285
+Iterations:    80
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_8_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    Oh, what happend here? Is this the best we can get? * (Answer Q1) With a
+simple implementation we do not find the optimal Solution. Therefore a
+randomization was implemented when we end up in a local minimum. (Start
+and end position are not randomized). It is far better with this
+optimization but it is still not a optimal solution.
+
+\begin{itemize}
+\tightlist
+\item
+  Why is this so?
+
+  \begin{itemize}
+  \tightlist
+  \item
+    (Answer Q2) We end up in a local minimum
+  \end{itemize}
+\item
+  How many steps did we need to get to this solution?
+
+  \begin{itemize}
+  \tightlist
+  \item
+    When Start and End position should stay then range(0, len(path)-2)
+    -\textgreater{} max swap steps to try (with initial path)
+  \end{itemize}
+\item
+  Can you suggest a method to improve the hill climbing algorithm?
+
+  \begin{itemize}
+  \tightlist
+  \item
+    (Answer Q3) Randomization (see code example)
+  \end{itemize}
+\end{itemize}
+
+    \hypertarget{genetic-algorithm}{%
+\subsubsection{Genetic Algorithm}\label{genetic-algorithm}}
+
+Genetic algorithms (or GA) are inspired by natural evolution and are
+particularly useful in optimization and search problems with large state
+spaces.
+
+Given a problem, algorithms in the domain make use of a
+\emph{population} of solutions (also called \emph{states}), where each
+solution/state represents a feasible solution. At each iteration (often
+called \emph{generation}), the population gets updated using methods
+inspired by biology and evolution, like \emph{crossover},
+\emph{mutation} and \emph{natural selection}.
+
+A genetic algorithm works in the following way:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi})}
+\item
+  Initialize random population.
+\item
+  Calculate population fitness.
+\item
+  Select individuals for mating.
+\item
+  Mate selected individuals to produce new population.
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Random chance to mutate individuals.
+  \end{itemize}
+\item
+  Repeat from step 2) until an individual is fit enough or the maximum
+  number of iterations was reached.
+\end{enumerate}
+
+Below, you can find some helper functions to implement your genetic
+algorithm.
+
+First, create a dictionnary that maps a letter to a city name.
+
+    Our solution will be a path through all the cities. To simplify, we will
+encode each city with a letter from the alphabet. So your first initial
+path through the cities will have the code ``ABCDEFGHIJK..''. We can
+easily convert a letter to a city by
+\texttt{letter2city(\textquotesingle{}A\textquotesingle{})} or
+\texttt{city2letter(\textquotesingle{}Rotkreuz\textquotesingle{})}.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}208}]:} \PY{k+kn}{import} \PY{n+nn}{string}
+          
+          \PY{n}{number\PYZus{}of\PYZus{}cities} \PY{o}{=} \PY{n+nb}{len}\PY{p}{(}\PY{n}{path}\PY{p}{)}
+          \PY{n}{letter2city} \PY{o}{=} \PY{n+nb}{dict}\PY{p}{(}\PY{p}{)}
+          \PY{n}{city2letter} \PY{o}{=} \PY{n+nb}{dict}\PY{p}{(}\PY{p}{)}
+          \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{number\PYZus{}of\PYZus{}cities}\PY{p}{)}\PY{p}{:}
+              \PY{n}{letter2city}\PY{p}{[}\PY{n}{string}\PY{o}{.}\PY{n}{ascii\PYZus{}uppercase}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{]} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{n}{path}\PY{p}{)}\PY{p}{[}\PY{n}{i}\PY{p}{]}
+              \PY{n}{city2letter}\PY{p}{[}\PY{n+nb}{list}\PY{p}{(}\PY{n}{path}\PY{p}{)}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{]} \PY{o}{=} \PY{n}{string}\PY{o}{.}\PY{n}{ascii\PYZus{}uppercase}\PY{p}{[}\PY{n}{i}\PY{p}{]}
+              
+          \PY{k}{def} \PY{n+nf}{path2string}\PY{p}{(}\PY{n}{path}\PY{p}{)}\PY{p}{:}
+              \PY{n}{s} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZdq{}}
+              \PY{k}{for} \PY{n}{city} \PY{o+ow}{in} \PY{n}{path}\PY{p}{:}
+                  \PY{n}{s}\PY{o}{+}\PY{o}{=}\PY{n}{city2letter}\PY{p}{[}\PY{n}{city}\PY{p}{]}
+              \PY{k}{return} \PY{n+nb}{list}\PY{p}{(}\PY{n}{s}\PY{p}{)}
+          
+          \PY{k}{def} \PY{n+nf}{path2cities}\PY{p}{(}\PY{n}{path}\PY{p}{)}\PY{p}{:}
+              \PY{n}{s} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{p}{)}
+              \PY{k}{for} \PY{n}{letter} \PY{o+ow}{in} \PY{n}{path}\PY{p}{:}
+                  \PY{n}{s}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{letter2city}\PY{p}{[}\PY{n}{letter}\PY{p}{]}\PY{p}{)}
+              \PY{k}{return} \PY{n}{s}
+          
+          \PY{n}{path\PYZus{}code} \PY{o}{=} \PY{n}{path2string}\PY{p}{(}\PY{n}{path}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{the path has the following code : }\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{n}{path\PYZus{}code}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+the path has the following code : 
+['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H']
+
+    \end{Verbatim}
+
+    Let's inizialize a random population:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}209}]:} \PY{k+kn}{import} \PY{n+nn}{random}
+          
+          \PY{k}{def} \PY{n+nf}{init\PYZus{}population}\PY{p}{(}\PY{n}{pop\PYZus{}number}\PY{p}{,} \PY{n}{cities}\PY{p}{)}\PY{p}{:}
+              \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}Initializes population for genetic algorithm}
+          \PY{l+s+sd}{    pop\PYZus{}number  :  Number of individuals in population}
+          \PY{l+s+sd}{    cities      :  cities in letter code \PYZdq{}\PYZdq{}\PYZdq{}}
+\end{Verbatim}
+
+
+    We can calculate the fitness of a path using the evaluate\_path
+function. Note that shorter paths are considered fitter.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}210}]:} \PY{k}{def} \PY{n+nf}{fitness}\PY{p}{(}\PY{n}{sample}\PY{p}{)}\PY{p}{:}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+
+          File "<ipython-input-210-3263e2f4dfc5>", line 1
+        def fitness(sample):
+                            \^{}
+    SyntaxError: unexpected EOF while parsing
+
+
+    \end{Verbatim}
+
+    Create a function to select two individuals for mating. Fitter
+individuals are more likely to be selected for reproduction than less
+fit individuals. Therefore, we have to calculate the weights of each
+indiviudal that corresponds to the likelyhood of being chosen for
+reproduction.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}211}]:} \PY{k+kn}{import} \PY{n+nn}{random}
+          \PY{k+kn}{from} \PY{n+nn}{random} \PY{k}{import} \PY{n}{choices}
+          
+          
+          \PY{k}{def} \PY{n+nf}{calculate\PYZus{}weights}\PY{p}{(}\PY{n}{population}\PY{p}{)}\PY{p}{:}
+              \PY{c+c1}{\PYZsh{} calculate the weight of each individual}
+              \PY{k}{return}
+          
+          
+          \PY{k}{def} \PY{n+nf}{select}\PY{p}{(}\PY{n}{population}\PY{p}{,} \PY{n}{weights}\PY{p}{)}\PY{p}{:}
+              \PY{c+c1}{\PYZsh{} return two individuals for reproduction}
+              \PY{c+c1}{\PYZsh{} fitter individuals should be more likely to be selected}
+              \PY{c+c1}{\PYZsh{} hint: use random.choices to chose from the population based on the weights of each individual}
+              \PY{k}{return}
+          
+          \PY{n}{population} \PY{o}{=} \PY{n}{init\PYZus{}population}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{,} \PY{n}{path\PYZus{}code}\PY{p}{)}
+          \PY{n}{weights} \PY{o}{=} \PY{n}{calculate\PYZus{}weights}\PY{p}{(}\PY{n}{population}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{n}{select}\PY{p}{(}\PY{n}{population}\PY{p}{,} \PY{n}{weights}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+None
+
+    \end{Verbatim}
+
+    Now that we can select two individuals, we make them reproduce using
+crossover and mutation. We need to consider that we want to visit every
+city exactly once. For example, for the crossover, you can take a random
+lenght of individual 1 and fill up the remaining cities based on the
+order of the unvisited cities in individual 2.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}212}]:} \PY{k}{def} \PY{n+nf}{crossover}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{y}\PY{p}{)}\PY{p}{:}
+              \PY{c+c1}{\PYZsh{} create an offspring from the parents x and y}
+              \PY{k}{return}
+              
+          \PY{k}{def} \PY{n+nf}{mutate}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{p\PYZus{}mutate}\PY{p}{)}\PY{p}{:}
+              \PY{c+c1}{\PYZsh{} switch the location of two cities}
+              \PY{k}{return}
+          
+          \PY{c+c1}{\PYZsh{} test your code}
+          \PY{n}{x} \PY{o}{=} \PY{n}{path\PYZus{}code}
+          \PY{n}{y} \PY{o}{=} \PY{n}{random}\PY{o}{.}\PY{n}{sample}\PY{p}{(}\PY{n}{path\PYZus{}code}\PY{p}{,} \PY{n+nb}{len}\PY{p}{(}\PY{n}{path\PYZus{}code}\PY{p}{)}\PY{p}{)}
+          \PY{n}{xy} \PY{o}{=} \PY{n}{crossover}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{y}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{n}{x}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{n}{y}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{n}{xy}\PY{p}{)}
+          \PY{n}{mutate}\PY{p}{(}\PY{n}{xy}\PY{p}{,} \PY{l+m+mf}{0.5}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{n}{xy}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H']
+['A', 'G', 'B', 'D', 'C', 'E', 'H', 'F']
+None
+None
+
+    \end{Verbatim}
+
+    We have now all the ingredients to create our genetic algorithm:
+
+    \hypertarget{simulated-annealing}{%
+\subsubsection{Simulated Annealing}\label{simulated-annealing}}
+
+The intuition behind Hill Climbing was developed from the metaphor of
+climbing up the graph of a function to find its peak. There is a
+fundamental problem in the implementation of the algorithm however. To
+find the highest hill, we take one step at a time, always uphill, hoping
+to find the highest point, but if we are unlucky to start from the
+shoulder of the second-highest hill, there is no way we can find the
+highest one. The algorithm will always converge to the local optimum.
+Hill Climbing is also bad at dealing with functions that flatline in
+certain regions. If all neighboring states have the same value, we
+cannot find the global optimum using this algorithm. Let's now look at
+an algorithm that can deal with these situations. Simulated Annealing is
+quite similar to Hill Climbing, but instead of picking the \emph{best}
+move every iteration, it picks a \emph{random} move. If this random move
+brings us closer to the global optimum, it will be accepted, but if it
+doesn't, the algorithm may accept or reject the move based on a
+probability dictated by the \emph{temperature}. When the
+\emph{temperature} is high, the algorithm is more likely to accept a
+random move even if it is bad. At low temperatures, only good moves are
+accepted, with the occasional exception. This allows exploration of the
+state space and prevents the algorithm from getting stuck at the local
+optimum.
+
+The temperature is gradually decreased over the course of the iteration.
+This is done by a scheduling routine:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}213}]:} \PY{k}{def} \PY{n+nf}{exp\PYZus{}schedule}\PY{p}{(}\PY{n}{k}\PY{o}{=}\PY{l+m+mi}{20}\PY{p}{,} \PY{n}{lam}\PY{o}{=}\PY{l+m+mf}{0.005}\PY{p}{,} \PY{n}{limit}\PY{o}{=}\PY{l+m+mi}{100}\PY{p}{)}\PY{p}{:}
+              \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}One possible schedule function for simulated annealing\PYZdq{}\PYZdq{}\PYZdq{}}
+              \PY{k}{return} \PY{k}{lambda} \PY{n}{t}\PY{p}{:} \PY{p}{(}\PY{n}{k} \PY{o}{*} \PY{n}{math}\PY{o}{.}\PY{n}{exp}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{n}{lam} \PY{o}{*} \PY{n}{t}\PY{p}{)} \PY{k}{if} \PY{n}{t} \PY{o}{\PYZlt{}} \PY{n}{limit} \PY{k}{else} \PY{l+m+mi}{0}\PY{p}{)}
+\end{Verbatim}
+
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
